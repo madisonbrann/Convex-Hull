@@ -83,10 +83,7 @@ class ConvexHullSolver(QObject):
 		i = 0
 		j = 0
 		k = l_index
-		count = 0
 		while i < l_arr_size and j < r_arr_size:
-			print(count)
-			count += 1
 			if left_arr[i].x() < right_arr[j].x():
 				points[k] = left_arr[i]
 				i+= 1
@@ -146,9 +143,11 @@ class ConvexHullSolver(QObject):
 		l_index = left_beg
 		r_index = right_beg
 		prev_tan = tuple([l_index,r_index])
+		count = 0
 		while True:
-
-			slope = self.find_slope(l_half[(l_index - 1) % len(l_half)],r_half[r_index])
+			print(count)
+			count += 1
+			slope = self.find_slope(l_half[l_index], r_half[r_index])
 			left_decreasing = True
 			while left_decreasing == True:
 				slope2 = self.find_slope(l_half[(l_index - 1) % len(l_half)], r_half[r_index])
