@@ -83,8 +83,10 @@ class ConvexHullSolver(QObject):
 		i = 0
 		j = 0
 		k = l_index
-
+		count = 0
 		while i < l_arr_size and j < r_arr_size:
+			print(count)
+			count += 1
 			if left_arr[i].x() < right_arr[j].x():
 				points[k] = left_arr[i]
 				i+= 1
@@ -111,7 +113,6 @@ class ConvexHullSolver(QObject):
 	def divide_and_conquer(self, points):
 		if (len(points) == 1):
 			return points
-		
 		l_half = self.divide_and_conquer(points[0: len(points) // 2])
 		r_half= self.divide_and_conquer(points[len(points) // 2:])
 
@@ -223,11 +224,11 @@ class ConvexHullSolver(QObject):
 
 		t3 = time.time()
 		# this is a dummy polygon of the first 3 unsorted points
-		polygon = self.divide_and_conquer(points)
+		correct_points = self.divide_and_conquer(points)
 		print("this happened")
-		print(polygon)
 		# TODO: REPLACE THE LINE ABOVE WITH A CALL TO YOUR DIVIDE-AND-CONQUER CONVEX HULL SOLVER
 		t4 = time.time()
+		polygon = [QLineF(correct_points[i], correct_points[(i + 1) % len(correct_points)]) for i in range (len(correct_points))]
 
 		# when passing lines to the display, pass a list of QLineF objects.  Each QLineF
 		# object can be created with two QPointF objects corresponding to the endpoints
